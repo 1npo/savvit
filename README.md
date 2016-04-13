@@ -1,3 +1,3 @@
 #savvit
-This is the script running on the website http://savvit.co. It's made
-available under the MIT license.
+This is a script that exports a reddit user's 'saved' pages to an html file
+that can me imported to a webbrowser as bookmarks.
