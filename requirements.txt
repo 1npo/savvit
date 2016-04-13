@@ -1,0 +1,4 @@
+flask
+yattag
+requests
+praw jinja2
