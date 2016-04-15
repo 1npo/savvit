@@ -2,13 +2,23 @@
 # -*- coding: utf-8 -*-
 
 
+# web
+from twisted.web.server import Site
+from twisted.web.wsgi import WSGIResource
+from twisted.internet import reactor
 from flask import Flask, request, make_response
+
+# parsing and formatting
 from ConfigParser import SafeConfigParser
-from uuid import uuid4
-from yattag import Doc, indent
-from praw.handlers import MultiprocessHandler
 from jinja2 import Template 
+from yattag import Doc, indent
+
+# reddit
 import praw
+from praw.handlers import MultiprocessHandler
+
+# misc
+from uuid import uuid4
 import time
 
 
@@ -120,8 +130,14 @@ def www_authorized():
     return response
     
 
+def run_twisted():
+    factory = Site(WSGIResource(reactor, reactor.getThreadPool(), app))
+    reactor.listenTCP(8080, factory)
+    reactor.run()
+
+
 if __name__ == '__main__':
     handler = MultiprocessHandler()
     r = praw.Reddit(user_agent=user_agent, handler=handler)
     r.set_oauth_app_info(client_id, client_secret, redirect_uri)
-    #app.run(debug=True, host='192.168.1.182', port=8080)
+    run_twisted()
