@@ -1,4 +1,6 @@
 flask
+twisted
+ConfigParser
 yattag
-requests
-praw jinja2
+praw
+jinja2
